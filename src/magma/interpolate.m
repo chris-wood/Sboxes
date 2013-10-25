@@ -65,8 +65,13 @@ interpolate_output := function(F, power, fullElem)
 			prod[1][1], prod[2][1], prod[3][1], prod[4][1], prod[5][1], prod[6][1], prod[7][1], prod[8][1],
 			prod[9][1], prod[10][1], prod[11][1], prod[12][1], prod[13][1], prod[14][1], prod[15][1], prod[16][1]
 		];
-		//prod;
-		elem:=SequenceToElement(Reverse(es), F) + constant;
+		// prod;
+		// es;
+		elem:=SequenceToElement(Reverse(es), F);
+		// elem;
+		// constant;
+		// quit;
+		elem := elem + constant;
 		//elem;
 
 		if (elem in Output1) then
@@ -79,13 +84,16 @@ interpolate_output := function(F, power, fullElem)
 
 		Output1:=Append(Output1, elem);
 
-		//if (e + elem) eq 0 or (e + elem) eq fullElem then
-		//	fixed := 1;
-		//	"inverse fixed found?";
-		//	" --- THIS SHOULD NOT HAPPEN --- ";
-		//	quit;
-		//	break;
-		//end if;
+		// if (e + elem) eq F!0 or (e + elem) eq fullElem then
+		// 	e;
+		// 	elem;
+		// 	e + elem;
+		// 	fixed := 1;
+		// 	"inverse fixed found?";
+		// 	" --- THIS SHOULD NOT HAPPEN --- ";
+		// 	quit;
+		// 	break;
+		// end if;
 
 		// Display the element and its output
 		e;
