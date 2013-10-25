@@ -1,3 +1,5 @@
+AssertAttribute(FldFin, "PowerPrinting", false);
+
 interpolate_output := function(F, power, fullElem)
 	// Build up the domain/range map for interpolation
 	Input1:=[];
@@ -5,7 +7,7 @@ interpolate_output := function(F, power, fullElem)
 	Output1:=[];
 	Output2:=[];
 
-	"Affine M";
+	"*** Affine M";
 	affine := Matrix(GF(2), 16, 16,
 	[
 		[0,0,1,0,0,0,0,1,0,0,1,1,1,1,1,0 ],
@@ -26,19 +28,19 @@ interpolate_output := function(F, power, fullElem)
 		[1,1,0,1,0,1,1,0,1,0,0,1,1,0,0,0]
 	]);
 	affine;
-	"Affine Inverse";
+	"*** Affine Inverse";
 	affine^(-1);
 
 	GF2 := GF(2);
 	constant := SequenceToElement([GF2!1,GF2!1,GF2!1,GF2!0,GF2!1,GF2!1,GF2!0,GF2!1,GF2!1,GF2!0,GF2!1,GF2!0,GF2!0,GF2!0,GF2!1,GF2!0], F);
-	"Constant";
+	"*** Constant";
 	constant;
 
 	// Compute the inverse (make sure it actually matches what we expect..)
 	v := Transpose(Matrix([Reverse(Eltseq(constant))]));
     ci := affine^(-1) * v;
     cinverse := Seqelt(Reverse([ci[1][1], ci[2][1], ci[3][1], ci[4][1], ci[5][1], ci[6][1], ci[7][1], ci[8][1], ci[9][1], ci[10][1], ci[11][1], ci[12][1], ci[13][1], ci[14][1], ci[15][1], ci[16][1]]), F);
-    "Constant Inverse";
+    "*** Constant Inverse";
     cinverse;
 
 	for e in F do
@@ -50,6 +52,8 @@ interpolate_output := function(F, power, fullElem)
 		else
 			s:=ElementToSequence(e^power);
 		end if;
+		//e;
+		//s;
 
 		// perform the matrix computation
 		v:=Transpose(Matrix([Reverse(s)]));
@@ -61,23 +65,31 @@ interpolate_output := function(F, power, fullElem)
 			prod[1][1], prod[2][1], prod[3][1], prod[4][1], prod[5][1], prod[6][1], prod[7][1], prod[8][1],
 			prod[9][1], prod[10][1], prod[11][1], prod[12][1], prod[13][1], prod[14][1], prod[15][1], prod[16][1]
 		];
+		//prod;
 		elem:=SequenceToElement(Reverse(es), F) + constant;
+		//elem;
 
 		if (elem in Output1) then
 			fixed := 1;
-			" --- THIS SHOULD NOT HAPPEN --- ";
+			"*** fixed found";
+			"***  --- THIS SHOULD NOT HAPPEN --- ";
 			quit;
 			break;
 		end if;
 
 		Output1:=Append(Output1, elem);
 
-		if (e + elem) eq 0 or (e + elem) eq fullElem then
-			fixed := 1;
-			" --- THIS SHOULD NOT HAPPEN --- ";
-			quit;
-			break;
-		end if;
+		//if (e + elem) eq 0 or (e + elem) eq fullElem then
+		//	fixed := 1;
+		//	"inverse fixed found?";
+		//	" --- THIS SHOULD NOT HAPPEN --- ";
+		//	quit;
+		//	break;
+		//end if;
+
+		// Display the element and its output
+		e;
+		elem;
 
 		// Now do the inverse S-box
 		Input2 := Append(Input2, elem); // elem = y
@@ -97,7 +109,8 @@ interpolate_output := function(F, power, fullElem)
 		Output2 := Append(Output2, elem);
 
 		if Eltseq(elem) ne Eltseq(e) then
-			" --- THIS SHOULD NOT HAPPEN --- ";
+			"*** element did not match it's inverse...";
+			"***  --- THIS SHOULD NOT HAPPEN --- ";
 			fixed := 1;
 			quit;
 			break;
@@ -106,18 +119,19 @@ interpolate_output := function(F, power, fullElem)
 	end for;
 
 	// This should always pass...
-	if fixed eq 0 then
-		affine;
-		constant;
-		NumberOfNonZeroEntries(affine);
-		affine^-1;
-		cinverse;
-		NumberOfNonZeroEntries(affine^-1);
-		constant;
-		Fx:=Interpolation(Input1,Output1);
-		Fx;
-		return affine, constant, cinverse;
-	end if;
+	//if fixed eq 0 then
+	"*** Performing interpolation...";
+	affine;
+	constant;
+	NumberOfNonZeroEntries(affine);
+	affine^-1;
+	cinverse;
+	NumberOfNonZeroEntries(affine^-1);
+	constant;
+	Fx:=Interpolation(Input1,Output1);
+	Fx;
+	return affine, constant, cinverse;
+	//end if;
 
 	return 0;
 end function;
