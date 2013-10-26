@@ -19,7 +19,7 @@ import numpy
 #from galois_util import *
 from time import *
 
-debug = False
+debug = True
 
 def coset(s, n):
 	order = 2**n - 1
