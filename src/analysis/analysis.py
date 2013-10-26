@@ -803,27 +803,34 @@ def computeAll(S, n, a):
 	# v = differentialUniformity(S)
 	# vals.append(v)
 	# print >> sys.stderr, v
-	# v = nonlinearity(S)
-	# vals.append(v)
-	# print >> sys.stderr, v
-	# v = branchNumber(S)
-	# vals.append(v)
-	# print >> sys.stderr, v
-	# val = algebraicImmunityComponent(S) # compute AI in R, not using SAGE
-	# vals.append(v)
-	# print >> sys.stderr, val
-	# v = algebraicImmunityBiAffine(n, a)
-	# vals.append(v)
-	# print >> sys.stderr, v
-	# v = algebraicImmunityQuadratic(n, a)
-	# vals.append(v)
-	# print >> sys.stderr, v
-	# v = numLinearIndependentBiAffineEqns(a, n)
-	# vals.append(v)
-	# print >> sys.stderr, v
-	# v = numLinearIndependentQuadraticEqns(a, n)
-	# vals.append(v)
-	# print >> sys.stderr, v
+	print >> sys.stderr, "Computing nonlinearity..."
+	v = nonlinearity(S)
+	vals.append(v)
+	print >> sys.stderr, v
+	print >> sys.stderr, "Computing branch number..."
+	v = branchNumber(S)
+	vals.append(v)
+	print >> sys.stderr, v
+	print >> sys.stderr, "Computing algebraic immunity..."
+	val = algebraicImmunityComponent(S) # compute AI in R, not using SAGE
+	vals.append(v)
+	print >> sys.stderr, val
+	print >> sys.stderr, "Computing alg immunity biaffine..."
+	v = algebraicImmunityBiAffine(n, a)
+	vals.append(v)
+	print >> sys.stderr, v
+	print >> sys.stderr, "Computing alg immunity quadratic..."
+	v = algebraicImmunityQuadratic(n, a)
+	vals.append(v)
+	print >> sys.stderr, v
+	print >> sys.stderr, "Computing number biaffine..."
+	v = numLinearIndependentBiAffineEqns(a, n)
+	vals.append(v)
+	print >> sys.stderr, v
+	print >> sys.stderr, "Computing number quadratic..."
+	v = numLinearIndependentQuadraticEqns(a, n)
+	vals.append(v)
+	print >> sys.stderr, v
 	v = correlationImmunity(S)
 	vals.append(v)
 	print >> sys.stderr, v
