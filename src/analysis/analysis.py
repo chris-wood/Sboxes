@@ -133,7 +133,7 @@ def nonlinearity(S, aal = -1, aau = -1):
 		# bf = BooleanFunction(f)
 		# bfnl = bf.nonlinearity()
 		bfnl = bf_nonlinearity(f, n)
-		print >> sys.stderr, ""
+		# print >> sys.stderr, ""
 		if (bfnl < nl):
 			if debug:
 				print >> sys.stderr, "New minimum NL = " + str(bfnl)
