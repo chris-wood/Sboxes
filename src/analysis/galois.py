@@ -1186,7 +1186,7 @@ def test3():
 # Main entry point - just runs one of the tests if this file
 # is ever started directly
 def main():
-	test3()
+	test1()
 
 if __name__ == "__main__":
 	main()
